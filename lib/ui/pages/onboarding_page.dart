@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:resepku/shared/app_theme.dart';
 import 'package:resepku/ui/widgets/buttons_custom.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -115,7 +116,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     width: double.infinity,
                     height: 50,
                     label: 'Discover More',
-                    onTap: (){
+                    onTap: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setBool('onboarding_complete', true);
+
                       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                     })
 

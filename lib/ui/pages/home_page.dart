@@ -4,6 +4,7 @@ import 'package:resepku/blocs/random_recipe_blocs/random_recipe_bloc.dart';
 import 'package:resepku/helper/RecipePassing.dart';
 import 'package:resepku/shared/app_theme.dart';
 import 'package:resepku/ui/widgets/recipe_card_custom.dart';
+import 'package:resepku/ui/widgets/tips_card.dart';
 import '../../models/Recipe.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,6 +19,18 @@ class _HomePageState extends State<HomePage> {
 
   late RandomRecipeBloc randomRecipeBloc;
 
+  void _onBottomNavigationBarItemTapped(int index) {
+    switch (index) {
+      case 0:
+      // Handle the tap for the 'Home' item if needed
+        break;
+      case 1:
+      // Navigate to the '/all-recipe' route when 'Recipes' is tapped
+        Navigator.pushNamed(context, '/all-recipe');
+        break;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.only(left: 24, right: 24, top: 14),
+          padding: const EdgeInsets.only(left: 24, right: 24, top: 14, bottom: 20),
           children: [
 
             //Top Section
@@ -80,7 +93,12 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 40),
 
             // Discover World Food
-            worldFood()
+            worldFood(),
+
+            const SizedBox(height: 40),
+
+            // Cooking Tips
+            cookingTips()
 
           ],
         ),
@@ -124,6 +142,10 @@ class _HomePageState extends State<HomePage> {
               label: 'Recipes',
             ),
           ],
+
+          onTap: (int index) {
+            _onBottomNavigationBarItemTapped(index);
+          },
         ),
       ),
 
@@ -382,6 +404,58 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
+
+  Widget cookingTips(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+
+        // Cooking Tips
+        Text(
+          'Cooking Tips',
+          style: blackTextStyle.copyWith(
+            fontSize: 16,
+            fontWeight: semiBold,
+          ),
+        ),
+
+        const SizedBox(height: 14),
+
+        const Wrap(
+          spacing: 20,
+          runSpacing: 20,
+
+          children: [
+            CookingTipsCardCustom(
+              tips: 'Best tips for homecook',
+              imgUrl: 'https://hips.hearstapps.com/hmg-prod/images/homemade-sea-salt-chocolate-chip-cookies-royalty-free-image-989456126-1544805122.jpg?resize=1200:*',
+              urlWeb: 'https://www.delish.com/kitchen-tools/kitchen-secrets/g25585978/best-cooking-tips/'
+          ),
+
+            CookingTipsCardCustom(
+                tips: 'Great hack to cook better food',
+                imgUrl: 'https://www.kroger.com/content/v2/binary/image/food-tips/cooking-skills/image_101-simple-cooking-tips-desktop-1543428065852.jpg',
+                urlWeb: 'https://www.kroger.com/blog/food/101-simple-cooking-tips'
+            ),
+
+            CookingTipsCardCustom(
+                tips: 'Find the best food combination',
+                imgUrl: 'https://www.realsimple.com/thmb/2BeYvu3AjuesIiuR4HILPRmlPMM=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/pan-oil-food-ictcrop_300-bc28c2bd4ab04ff9b43fd912ccbf5284.jpg',
+                urlWeb: 'https://www.realsimple.com/food-recipes/cooking-tips-techniques/kitchen-tips-techniques'
+            ),
+
+            CookingTipsCardCustom(
+                tips: 'Save your time read this instead',
+                imgUrl: 'https://media3.bosch-home.com/Images/1600x/MCIM02007200_FR10-KL-6CookingTips.webp',
+                urlWeb: 'https://www.bosch-home.co.id/en/experience-bosch/living-with-bosch/fresh-reads/6-simple-cooking-tips-for-the-beginner-chef'
+            ),
+          ],
+        ),
+
+      ],
+    );
+  }
+
 }
 
 

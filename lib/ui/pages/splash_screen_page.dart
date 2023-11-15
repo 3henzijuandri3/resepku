@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
@@ -12,10 +13,17 @@ class SplashScreenPage extends StatefulWidget {
 class _SplashScreenPage extends State<SplashScreenPage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Timer(const Duration(seconds: 2), (){
-      Navigator.pushNamedAndRemoveUntil(context, '/onboarding', (route) => false);
+    Timer(const Duration(seconds: 2), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool onboardingComplete = prefs.getBool('onboarding_complete') ?? false;
+
+      if (onboardingComplete) {
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      } else {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/onboarding', (route) => false);
+      }
     });
   }
 
