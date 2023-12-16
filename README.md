@@ -1,6 +1,6 @@
 # resepku (Bloc State Mangement)
 
-Resepku is a mobile application that provide multiple food recipe. In Resepku, users are able to search and get food's recipe information by category or country. Resepku was made using Flutter with the use of Bloc for the state management. The food recipe data is retrieved from meal API. [TheMealDB](https://www.themealdb.com/api.php).
+Resepku is a mobile application that provide multiple food recipe. In this version, Bloc is used for maintaining the recipe data state. The food recipe data is retrieved from meal API. [TheMealDB](https://www.themealdb.com/api.php).
 
 ## Features
 - Get Food Recipe
